@@ -1,0 +1,2 @@
+cp -R compiled/* ../plugins/
+rm -R compiled/*

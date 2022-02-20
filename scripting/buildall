@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ $# -ge 1 ]; then
+	base=$1/
+else
+	base=
+fi
+
+for i in source/$base/*
+do
+	f=${i##*/}
+	g=${f%\~*}
+	h=${g%\.*}
+
+	if [ $f == $g ]; then
+		if test -f source/$base$h.sma; then
+			./build $base$h
+		fi
+	fi
+done

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ ! $# -eq 1 ]
+then
+	echo "Please enter script name"
+	exit
+fi
+
+echo "-------- $1 --------"
+
+if ! test -f source/$1.sma; then
+	echo "FILE NOT FOUND!"
+	exit
+fi
+
+includedir=`dirname "$1"`
+mkdir -p compiled/$includedir
+rm -f compiled/$1.amxx
+
+cd compiler
+./amxxpc ../source/$1.sma -i../include/standard -i../include/custom -i../source/$includedir -o../compiled/$1.amxx > .output.txt
+cd ..
+
+if ! test -f compiled/$1.amxx; then
+	cat compiler/.output.txt
+fi
+rm compiler/.output.txt
